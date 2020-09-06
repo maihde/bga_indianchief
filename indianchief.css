@@ -1,0 +1,57 @@
+/**
+ *------
+ * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
+ * IndianChief  implementation : © Michael Ihde <mike.ihde@randomwalking.com>
+ *
+ * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
+ * See http://en.boardgamearena.com/#!doc/Studio for more information.
+ * -----
+ *
+ *
+ * IndianChief  stylesheet
+ *
+ */
+
+@import url(../../../css/csslayer.css);
+
+/** Table layout **/
+
+#playertables {
+    position: relative;
+    width: 600px;
+}
+
+.playertablename {
+    font-weight: bold;
+}
+
+.playertable {
+    /* position: absolute; */
+    text-align: center;
+    width: 100%;
+    height: 130px;
+}
+
+/*** cards on table ***/
+
+.cardontable {
+    position: absolute;
+    width: 72px;
+    height: 96px;
+    background-image: url('img/cards.jpg'); 
+}
+
+.scoretable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.scoretable th {
+    border: 1px solid black;
+    font-weight: bold;
+}
+
+.scoretable th, td {
+    border: 1px solid black;
+    text-align: center;
+}
