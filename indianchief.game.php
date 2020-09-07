@@ -192,7 +192,7 @@ class IndianChief extends Table
     function getGameProgression()
     {
         // TODO: compute and return the game progression
-        $progression = self::getStat( "currentRound" ) / 7.0;
+        $progression = (self::getStat( "currentRound" ) / 7.0) * 100.0;
 
         return $progression;
     }
