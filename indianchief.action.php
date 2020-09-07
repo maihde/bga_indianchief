@@ -56,6 +56,14 @@
         self::ajaxResponse( );    
     }
 
+    public function undoMeld()
+    {
+        self::setAjaxMode();     
+
+        $this->game->undoMeld( );
+        self::ajaxResponse( );    
+    }
+
     public function endHand()
     {
         self::setAjaxMode();     

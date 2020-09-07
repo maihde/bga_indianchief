@@ -151,6 +151,9 @@ class IndianChief extends Table
 
         // Cards in player hand      
         $result['hand'] = $this->cards->getCardsInLocation( 'hand', $current_player_id );
+
+        // Cards about to be meld
+        $result['temporary'] = $this->cards->getCardsInLocation( 'temporary', $current_player_id );
   
         $players = self::loadPlayersBasicInfos();
         $result['cardsontable'] = array();
@@ -649,7 +652,7 @@ class IndianChief extends Table
 
         // Notify the player so we can make these cards meld
         self::notifyPlayer( $player_id, "meldCards", "", array(
-            "cards" => $card_ids
+            "cards" => $cards
         ) );
 
         // Make this player unactive now
@@ -657,12 +660,27 @@ class IndianChief extends Table
         $this->gamestate->setPlayerNonMultiactive( $player_id, "playCards" );
     }
 
+    function undoMeld( )
+    {
+        $this->gamestate->checkPossibleAction( "undoMeld" );
+        
+        $player_id = self::getCurrentPlayerId();
+
+        $cards_to_meld = $this->cards->getCardsInLocation( 'temporary', $player_id );
+
+        $this->cards->moveAllCardsInLocation( "temporary", "hand", $player_id, $player_id );
+
+        $this->gamestate->setPlayersMultiactive( array( $player_id ), "playCards" );
+
+        self::notifyPlayer( $player_id, "undoMeld", "", array(
+            "cards" => $cards_to_meld 
+        ) );
+    }
+
     function endHand() {
         self::checkAction( "endHand" );
 
         $player_id = self::getCurrentPlayerId();
-
-
     }
 
     function takeCard($card_taken_id, $card_given_id) {

@@ -108,6 +108,17 @@ function (dojo, declare) {
                     var value = card.type_arg;
                     this.tableCards[player_id].addToStockWithId( this.getCardUniqueId( color, value ), card.id );
                 }
+
+            }
+
+            if ( this.gamedatas.temporary ) {
+                for( var i in this.gamedatas.temporary )
+                {
+                    var card = this.gamedatas.temporary[i];
+                    var color = card.type;
+                    var value = card.type_arg;
+                    this.tableCards[this.player_id].addToStockWithId( this.getCardUniqueId( color, value ), card.id );
+                }
             }
 
             this.updateScores( this.gamedatas.scores );
@@ -184,15 +195,19 @@ function (dojo, declare) {
                 case 'meldCards':
                     this.addActionButton( 'meldCards_button', _('Meld Cards'), 'onMeldCards' ); 
                     break;
-                
-                //case 'endHand':
-                //    this.addActionButton( 'endHand_button', _('Next Hand'), 'onEndHand' ); 
-                //    break;
                 case 'thiefTurn':
                     this.addActionButton( 'takeCard_button', _('Take Card'), 'onTakeCard' ); 
                     this.addActionButton( 'skipTakeCard_button', _('Skip'), 'onSkipTakeCard' ); 
                     break;
                 }
+            } else {
+                switch( stateName )
+                {
+                case 'meldCards':
+                    this.addActionButton( 'undoMeld_button', _('Undo Meld'), 'onUndoMeld' ); 
+                    break;
+
+                } 
             }
         },        
 
@@ -321,6 +336,12 @@ function (dojo, declare) {
                 this.ajaxcall( "/indianchief/indianchief/meldCards.html", { cards: to_meld }, this, function( result ) {
                 }, function( is_error) { } );                
             }        
+        },
+
+        onUndoMeld: function()
+        {
+            this.ajaxcall( "/indianchief/indianchief/undoMeld.html", { }, this, function( result ) {
+            }, function( is_error) { } );
         },
 
         onEndHand: function()
@@ -460,6 +481,9 @@ function (dojo, declare) {
             dojo.subscribe( 'newScores', this, "notif_newScores" );
             this.notifqueue.setSynchronous( 'newScores', 5000 );
 
+            dojo.subscribe( 'meldCards', this, "notif_meldCards" );
+            dojo.subscribe( 'undoMeld', this, "notif_undoMeld" );
+
             dojo.subscribe( 'playCards', this, "notif_playCards" );
 
             dojo.subscribe( 'takeCard', this, "notif_takeCard" );
@@ -492,6 +516,47 @@ function (dojo, declare) {
             moved to the table at this point, the move is hidden
             from all other players at this point.
         */
+        notif_meldCards: function( notif )
+        {
+            for( var i in notif.args.cards )
+            {
+                var card = notif.args.cards[i];
+                var color = card.type;
+                var value = card.type_arg;
+
+                this.tableCards[this.player_id].addToStockWithId(
+                    this.getCardUniqueId( color, value ), card.id, `myhand_item_${card.id}`
+                );
+                this.playerHand.removeFromStockById( card.id );
+            }
+
+            this.tableCards[this.player_id].updateDisplay();
+            this.playerHand.updateDisplay();
+
+            this.playerHand.setSelectionMode(0);
+        },
+
+        notif_undoMeld: function( notif )
+        {
+            console.log("Undo Meld");
+            for( var i in notif.args.cards )
+            {
+                var card = notif.args.cards[i];
+                var color = card.type;
+                var value = card.type_arg;
+
+                this.playerHand.addToStockWithId(
+                    this.getCardUniqueId( color, value ), card.id, `playertablecards_${this.player_id}_item_${card.id}`
+                );
+                this.tableCards[this.player_id].removeFromStockById( card.id );
+            }
+
+            this.tableCards[this.player_id].updateDisplay();
+            this.playerHand.updateDisplay();
+
+            this.playerHand.setSelectionMode(2);
+        },
+
         notif_playCards: function( notif )
         {
             for( var i in notif.args.cards )
@@ -500,12 +565,8 @@ function (dojo, declare) {
                 var color = card.type;
                 var value = card.type_arg;
 
-                if (card.location_arg == this.player_id) {
-                    this.tableCards[notif.args.player_id].addToStockWithId(
-                        this.getCardUniqueId( color, value ), card.id, `myhand_item_${card.id}`
-                    );
-                    this.playerHand.removeFromStockById( card.id );
-                } else {
+                // A players own cards area already in their table
+                if (card.location_arg != this.player_id) {
                     this.tableCards[notif.args.player_id].addToStockWithId(
                         this.getCardUniqueId( color, value ), card.id
                     );

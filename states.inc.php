@@ -77,7 +77,7 @@ $machinestates = array(
         "descriptionmyturn" => clienttranslate('${you} must choose 1-7 cards to meld'),
         "type" => "multipleactiveplayer",
         "action" => "stMeldCards",
-        "possibleactions" => array( "meldCards" ),
+        "possibleactions" => array( "meldCards", "undoMeld" ),
         "transitions" => array( "playCards" => 40 )        
     ),
     
@@ -87,8 +87,8 @@ $machinestates = array(
         "descriptionmyturn" => clienttranslate('this hand has been finished'),
         "type" => "game",
         "action" => "stEndHand",
-        "possibleactions" => array( "endHand" ),
-        "transitions" => array( "newHand" => 20, "thiefTurn" => 41, "endGame" => 99 )
+        "possibleactions" => array( ),
+        "transitions" => array( "newHand" => 20, "undoMeld" => 30, "thiefTurn" => 41, "endGame" => 99 )
     ),  
 
     41 => array(
