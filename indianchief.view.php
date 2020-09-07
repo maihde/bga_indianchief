@@ -30,29 +30,54 @@
   {
     function getGameName() {
         return "indianchief";
-    }    
+    }
+
+    /*
+        playerNoSort:
+        
+        Sort cards based off player_no
+    */
+    function playerNumberSort($a, $b)
+    {
+        if ($a['player_no'] == $b['player_no']) {
+            return 0;
+        } else {
+            return ($a['player_no'] < $b['player_no']) ? -1 : 1;
+        }
+    }
+
   	function build_page( $viewArgs )
-  	{		
+  	{
+        global $g_user;
   	    // Get players & players number
         $players = $this->game->loadPlayersBasicInfos();
         $players_nbr = count( $players );
 
+        $player_order = $this->game->getNextPlayerTable();
+        $player_id = $g_user->get_id();
+
         /*********** Place your code below:  ************/
         $this->page->begin_block( "indianchief_indianchief", "player" );
-        foreach( $players as $player_id => $player )
+        $player_id = $g_user->get_id();
+        for ($x = 0; $x < $players_nbr; $x++)
         {
-            $this->page->insert_block( "player", array( "PLAYER_ID" => $player_id,
-                                                        "PLAYER_NAME" => $players[$player_id]['player_name'],
-                                                        "PLAYER_COLOR" => $players[$player_id]['player_color'],
+            $player = $players[ $player_id ];
+
+            $this->page->insert_block( "player", array( "PLAYER_ID" => $player['player_id'],
+                                                        "PLAYER_NAME" => $player['player_name'],
+                                                        "PLAYER_COLOR" => $player['player_color'],
                                                       ) );
+            $player_id = $player_order[$player_id];
         }
 
         $this->page->begin_block( "indianchief_indianchief", "player_score" );
-        foreach( $players as $player_id => $player )
+        $player_id = $g_user->get_id();
+        for ($x = 0; $x < $players_nbr; $x++)
         {
-            $this->page->insert_block( "player_score", array( "PLAYER_ID" => $player_id,
-                                                              "PLAYER_NAME" => $players[$player_id]['player_name'],
-                                                              "PLAYER_COLOR" => $players[$player_id]['player_color'],
+            $player = $players[ $player_id ];
+            $this->page->insert_block( "player_score", array( "PLAYER_ID" => $player['player_id'],
+                                                              "PLAYER_NAME" => $player['player_name'],
+                                                              "PLAYER_COLOR" => $player['player_color'],
                                                               "PLAYER_SCORE" => 0,
                                                               "PLAYER_THIEF_SCORE" => $this->game->getStat('thiefPoints', $player_id),
                                                               "PLAYER_BEGGAR_SCORE" => $this->game->getStat('beggarPoints', $player_id),
@@ -62,6 +87,7 @@
                                                               "PLAYER_DOCTOR_SCORE" => $this->game->getStat('doctorPoints', $player_id),
                                                               "PLAYER_INDIANCHIEF_SCORE" => $this->game->getStat('indianChiefPoints', $player_id),
                                                       ) );
+            $player_id = $player_order[$player_id];
         }
 
         $this->tpl['MY_HAND'] = self::_("My hand");
