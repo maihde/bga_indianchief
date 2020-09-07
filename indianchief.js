@@ -337,6 +337,7 @@ function (dojo, declare) {
 
         onTakeCard: function()
         {
+            console.log("On take card");
             var player_meld = this.tableCards[this.player_id].getAllItems();
             if( player_meld.length !== 1 ) {
                 this.showMessage( _("You are not a thief and cannot take a card"), 'error' );
@@ -357,12 +358,17 @@ function (dojo, declare) {
                     continue;
                 }
                 items = this.tableCards[player_id].getSelectedItems();
-                if (( items.length > 1 ) || (card_taken !==  null)) {
+                if ( items.length == 1 ) {
+                    if (card_taken !==  null) {
+                        this.showMessage( _("You can only steal one card"), 'error' );
+                        return;
+                    } else {
+                        card_taken = items[0];
+                    }
+                } else if (items.length > 1 ) {
                     this.showMessage( _("You can only steal one card"), 'error' );
                     return;
                 }
-
-                card_taken = items[0];
             }
 
             if (card_taken === null) {

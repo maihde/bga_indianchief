@@ -981,6 +981,8 @@ class IndianChief extends Table
     	
         if ($state['type'] === "activeplayer") {
             switch ($statename) {
+                case 'thiefTurn':
+                    $this->takeCard(-1, -1);
                 default:
                     $this->gamestate->nextState( "zombiePass" );
                 	break;
@@ -990,6 +992,15 @@ class IndianChief extends Table
         }
 
         if ($state['type'] === "multipleactiveplayer") {
+            switch ($statename) {
+                case 'meldCards':
+                    // Pick any meld that hasn't been done
+                    $this->zombieMeld( $active_player );
+                    break;
+                default:
+                	break;
+            }
+
             // Make sure player is in a non blocking status for role turn
             $this->gamestate->setPlayerNonMultiactive( $active_player, '' );
             

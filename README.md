@@ -87,3 +87,9 @@ If these three conditions are met, then the player picks one suit and scores 10 
 5 for no pair
 
 Remember: The 7 melds can be played in any order. After the 7 rounds are played and scored, the winner is the player with the most points.
+
+Credits
+-----
+Vector Art - <a href="https://www.vecteezy.com/free-vector/indian">Indian Vectors by Vecteezy</a>
+Playing Cards - https://www.svgrepo.com/svg/169618/playing-cards
+Artwork - J. Riddle https://boardgamegeek.com/image/1253784/indian-chief

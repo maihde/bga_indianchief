@@ -16,25 +16,25 @@ $gameinfos = array(
 'game_name' => "Indian Chief",
 
 // Game designer (or game designers, separated by commas)
-'designer' => 'John Doe',       
+'designer' => 'Stven Carlburg',       
 
 // Game artist (or game artists, separated by commas)
-'artist' => 'Jane Doe',         
+'artist' => 'Vecteezy, SVG Repo',         
 
 // Year of FIRST publication of this game. Can be negative.
-'year' => 2000,                 
+'year' => 2009,                 
 
 // Game publisher (use empty string if there is no publisher)
-'publisher' => 'My Publishing Company',                     
+'publisher' => 'Stven Carlburg',                     
 
 // Url of game publisher website
-'publisher_website' => 'http://www.catsatcards.com/Games/IndianChief.html',   
+'publisher_website' => 'https://boardgamegeek.com/thread/372636/rules-indian-chief',   
 
 // Board Game Geek ID of the publisher
 'publisher_bgg_id' => 1234,
 
 // Board game geek ID of the game
-'bgg_id' => 0,
+'bgg_id' => 4,
 
 
 // Players configuration that can be played (ex: 2 to 4 players)
