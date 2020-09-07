@@ -61,31 +61,31 @@ $stats_type = array(
     "player" => array(
 
         "thiefPoints" => array("id"=> 51,
-            "name" => totranslate("Current round"),
+            "name" => totranslate("Thief Points"),
             "type" => "int" ),
 
         "beggarPoints" => array("id"=> 52,
-            "name" => totranslate("Current round"),
+            "name" => totranslate("Beggar Points"),
             "type" => "int" ),
 
         "poorManPoints" => array("id"=> 53,
-            "name" => totranslate("Current round"),
+            "name" => totranslate("Poor Man Points"),
             "type" => "int" ),
 
         "lawyerPoints" => array("id"=> 54,
-            "name" => totranslate("Current round"),
+            "name" => totranslate("Lawyer Points"),
             "type" => "int" ),
 
         "richManPoints" => array("id"=> 55,
-            "name" => totranslate("Current round"),
+            "name" => totranslate("Rich Man Points"),
             "type" => "int" ),
 
         "doctorPoints" => array("id"=> 56,
-            "name" => totranslate("Current round"),
+            "name" => totranslate("Doctor Points"),
             "type" => "int" ), 
 
         "indianChiefPoints" => array("id"=> 57,
-            "name" => totranslate("Current round"),
+            "name" => totranslate("Indian Chief Points"),
             "type" => "int" ), 
     ),
 

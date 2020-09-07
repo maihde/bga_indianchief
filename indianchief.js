@@ -306,7 +306,7 @@ function (dojo, declare) {
 
                 if( items.length > 7 )
                 {
-                    this.showMessage( _("You must meld no more than eight cards"), 'error' );
+                    this.showMessage( _("You must meld no more than seven cards"), 'error' );
                     return;
                 }
 

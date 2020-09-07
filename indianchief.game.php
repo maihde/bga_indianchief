@@ -571,7 +571,7 @@ class IndianChief extends Table
             }
         }
 
-        usort($thieves, "self::reverseCardSort");
+        usort($thieves, "self::cardSort");
 
         return $thieves;
     }
