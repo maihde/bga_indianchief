@@ -52,9 +52,6 @@ $stats_type = array(
     // Statistics global to table
     "table" => array(
 
-        "currentRound" => array("id"=> 10,
-                    "name" => totranslate("Current round"),
-                    "type" => "int" ),
     ),
     
     // Statistics existing for each player

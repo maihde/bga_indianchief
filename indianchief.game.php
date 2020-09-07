@@ -33,7 +33,8 @@ class IndianChief extends Table
         parent::__construct();
         
         self::initGameStateLabels( array(
-            "currentThiefOffset" => 10
+            "currentThiefOffset" => 10,
+            "currentRound" => 20,
         ) );  
         
         $this->cards = self::getNew( "module.common.deck" );
@@ -80,10 +81,10 @@ class IndianChief extends Table
 
         // Init global values with their initial values
         self::setGameStateInitialValue( 'currentThiefOffset', 0 );
+        self::setGameStateInitialValue( 'currentRound', 0 );
 
         // Init game statistics
         // (note: statistics used in this file must be defined in your stats.inc.php file)
-        self::initStat( "table", "currentRound", 0 );
         self::initStat( "player", "thiefPoints", -99 );
         self::initStat( "player", "beggarPoints", -99 );
         self::initStat( "player", "poorManPoints", -99 );
@@ -91,11 +92,6 @@ class IndianChief extends Table
         self::initStat( "player", "richManPoints", -99 );
         self::initStat( "player", "doctorPoints", -99 );
         self::initStat( "player", "indianChiefPoints", -99 );
-
-        //self::initStat( 'table', 'table_teststat1', 0 );    // Init a table statistics
-        //self::initStat( 'player', 'player_teststat1', 0 );  // Init a player statistics (for all players)
-
-        // TODO: setup the initial game situation here
 
         // Setup the cards - one deck for 2-3 players, two decks for 4-8 players
         $num_decks = 1;
@@ -195,7 +191,7 @@ class IndianChief extends Table
     function getGameProgression()
     {
         // TODO: compute and return the game progression
-        $progression = (self::getStat( "currentRound" ) / 7.0) * 100.0;
+        $progression = ((self::getGameStateValue( "currentRound" ) - 1) / 7.0) * 100.0;
 
         return $progression;
     }
@@ -779,7 +775,8 @@ class IndianChief extends Table
     */
     function stNewHand()
     {
-        self::incStat( 1, "currentRound" );
+        self::incGameStateValue("currentRound", 1);
+
 
         // Replenish each players hand to 8 cards
         $players = self::loadPlayersBasicInfos();
@@ -835,7 +832,7 @@ class IndianChief extends Table
     */
     function stEndHand()
     {
-        $currentRound = self::getStat("currentRound");
+        $currentRound = self::getGameStateValue("currentRound");
 
         // Move the cards the player has decided to meld onto the table
         $this->cards->moveAllCardsInLocationKeepOrder( "temporary", "cardsontable" );
@@ -922,7 +919,7 @@ class IndianChief extends Table
             "scores" => $newScores
         ) );
 
-        $currentRound = self::getStat( "currentRound" );
+        $currentRound = self::getGameStateValue( "currentRound" );
 
         if ($currentRound == 7) {
             $this->gamestate->nextState( "endGame" );
@@ -942,7 +939,7 @@ class IndianChief extends Table
         stResolveThief:
     */
     function stResolveThief() {
-        $currentRound = self::getStat("currentRound");
+        $currentRound = self::getGameStateValue("currentRound");
 
         // At the end of the game, there is no reason to resolve the thief
         if ($currentRound == 7) {
