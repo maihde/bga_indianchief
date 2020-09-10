@@ -221,13 +221,39 @@ class IndianChief extends Table
         return $this->colors[ $card['type'] ][ 'name'] ;
     }
 
+    function cardShortSuitName($card) {
+        return $this->colors[ $card['type'] ][ 'namesh'] ;
+    }
+
     function cardRankName($card) {
-        return $this->colors[ $card['type'] ][ 'name'] ;
+        return $this->values_label[ $card['type_arg'] ] ;
     }
 
     function cardName($card) {
         return self::cardRankName($card).' of '.self::cardSuitName($card).'s';
     }
+
+    function cardShortName($card) {
+        return self::cardRankName($card).self::cardShortSuitName($card);
+    }
+
+    function cardNames($cards) {
+        $card_names = array();
+        foreach($cards as $card) {
+            array_push($card_names, self::cardName($card));
+        }
+        return implode(',', $card_names);
+    }
+
+    function cardShortNames($cards) {
+        $card_names = array();
+        foreach($cards as $card) {
+            array_push($card_names, self::cardShortName($card));
+        }
+        return implode(',', $card_names);
+    }
+
+
 
     /*
         cardSort:
@@ -887,8 +913,10 @@ class IndianChief extends Table
            
 
             $player_name = $player['player_name'];
+            $card_names = self::cardShortNames($cards_melded);
+            $msg = $player_name.' plays '.$meld_played.' ['.$card_names.'] for '.$points." points";
 
-            self::notifyAllPlayers( 'playCards', clienttranslate($player_name.' plays '.$meld_played.' for '.$points." points"), array(
+            self::notifyAllPlayers( 'playCards', clienttranslate($msg), array(
                 'cards' =>  $cards_melded,
                 'player_id' => $player_id,
                 'player_name' => $player_name,

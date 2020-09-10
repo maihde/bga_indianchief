@@ -21,12 +21,16 @@
 
 $this->colors = array(
   1 => array( 'name' => clienttranslate('spade'),
+              'namesh' => self::_('S'), // TODO can we use the unicode card symbols here?
               'nametr' => self::_('spade') ),
   2 => array( 'name' => clienttranslate('heart'),
+              'namesh' => self::_('H'),
               'nametr' => self::_('heart') ),
   3 => array( 'name' => clienttranslate('club'),
+              'namesh' => self::_('C'),
               'nametr' => self::_('club') ),
   4 => array( 'name' => clienttranslate('diamond'),
+              'namesh' => self::_('D'),
               'nametr' => self::_('diamond') )
 );
 
