@@ -233,6 +233,7 @@ function (dojo, declare) {
         {
             var point_types = ['thief', 'beggar', 'poorMan', 'lawyer', 'richMan', 'doctor', 'indianChief'];
 
+            this.scores = scores;
             for( var player_id in scores )
             {
                 var newScore = scores[ player_id ]['totalPoints'];
@@ -322,6 +323,15 @@ function (dojo, declare) {
                 if( items.length > 7 )
                 {
                     this.showMessage( _("You must meld no more than seven cards"), 'error' );
+                    return;
+                }
+
+                // Can meld cards => let the player select some cards
+                var meld_types = ['thief', 'beggar', 'poorMan', 'lawyer', 'richMan', 'doctor', 'indianChief'];
+                var meld = meld_types[items.length-1];
+                if (this.scores[this.player_id][`${meld}Points`] != -99) {
+                    console.log(this.scores, items.length)
+                    this.showMessage( _(`You have already played the ${meld} meld.`), 'error' );
                     return;
                 }
 
