@@ -736,10 +736,14 @@ class IndianChief extends Table
             $this->cards->moveCard( $card_given_id, "cardsontable", $card_taken['location_arg'] );
             // The card you take is moved into your hand and cannot be stolen
             $this->cards->moveCard( $card_taken_id, "hand", $player_id );
-
+            
             $player_taken_name = $players[ $card_taken['location_arg' ] ]['player_name'];
-            self::notifyAllPlayers( "takeCard", clienttranslate('${player_name} steals from '.$player_taken_name), array(
+            $card_taken_name = self::cardShortName( $card_taken);
+            $card_given_name = self::cardShortName( $card_given);
+            self::notifyAllPlayers( "takeCard", clienttranslate('${player_name} steals [${card_taken_name}] from '.$player_taken_name.'and gives [${card_given_name}]'), array(
                 "card_taken" => $card_taken,
+                "card_taken_name" => $card_taken_name,
+                "card_given_name" => $card_given_name,
                 "card_given" => $card_given,
                 "taken_from_player_id" => $card_taken['location_arg'],
                 "player_id" => $player_id,
@@ -747,6 +751,10 @@ class IndianChief extends Table
             ) );
         } else {
             // if a thief skips, we need to jump over them in the offset position
+            self::notifyAllPlayers( "skipThief", clienttranslate('${player_name} skips thief action'), array(
+                "player_id" => $player_id,
+                "player_name" => $players[$player_id]['player_name'],
+            ) );
             self::incGameStateValue( 'currentThiefOffset', 1 );
         }
 
