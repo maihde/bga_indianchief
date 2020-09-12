@@ -59,6 +59,9 @@
         /*********** Place your code below:  ************/
         $this->page->begin_block( "indianchief_indianchief", "player" );
         $player_id = $g_user->get_id();
+        if (!array_key_exists($player_id, $players)) {
+            $player_id = $player_order["0"];
+        }
         for ($x = 0; $x < $players_nbr; $x++)
         {
             $player = $players[ $player_id ];
@@ -72,6 +75,9 @@
 
         $this->page->begin_block( "indianchief_indianchief", "player_score" );
         $player_id = $g_user->get_id();
+        if (!array_key_exists($player_id, $players)) {
+            $player_id = $player_order["0"];
+        }
         for ($x = 0; $x < $players_nbr; $x++)
         {
             $player = $players[ $player_id ];

@@ -200,7 +200,7 @@ function (dojo, declare) {
                     this.addActionButton( 'skipTakeCard_button', _('Skip'), 'onSkipTakeCard' ); 
                     break;
                 }
-            } else {
+            } else if (!this.isSpectator) {
                 switch( stateName )
                 {
                 case 'meldCards':
