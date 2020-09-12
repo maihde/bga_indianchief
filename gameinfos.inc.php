@@ -19,13 +19,13 @@ $gameinfos = array(
 'designer' => 'Stven Carlburg',       
 
 // Game artist (or game artists, separated by commas)
-'artist' => 'Vecteezy, SVG Repo',         
+'artist' => 'J. Riddle, Vecteezy, SVG Repo',
 
 // Year of FIRST publication of this game. Can be negative.
 'year' => 2009,                 
 
 // Game publisher (use empty string if there is no publisher)
-'publisher' => 'Stven Carlburg',                     
+'publisher' => '',
 
 // Url of game publisher website
 'publisher_website' => 'https://boardgamegeek.com/thread/372636/rules-indian-chief',   
@@ -127,9 +127,10 @@ $gameinfos = array(
 // Each paragraph must be wrapped with totranslate() for translation and should not contain html (plain text without formatting).
 // A good length for this text is between 100 and 150 words (about 6 to 9 lines on a standard display)
 'presentation' => array(
-//    totranslate("This wonderful game is about geometric shapes!"),
-//    totranslate("It was awarded best triangle game of the year in 2005 and nominated for the Spiel des Jahres."),
-//    ...
+    totranslate("Indian Chief is a card game that was first described on Board Game Geek by Stven Carlberg. "),
+    totranslate("It is named and themed after after a Mother Goose nursery rhyme.  Each round, players create "),
+    totranslate("a meld of one to seven cards and will score points.  A player can only make a specific meld "),
+    totranslate("combination once and after seven rounds the game will end and the player with the highest score wins."),
 ),
 
 // Games categories
