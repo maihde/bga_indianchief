@@ -715,7 +715,9 @@ class IndianChief extends Table
 
         $player_id = self::getCurrentPlayerId();
 
-        if ($thieves[0]['location_arg'] != $player_id)
+        $current_thief = self::getGameStateValue( 'currentThiefOffset' );
+
+        if ($thieves[$current_thief]['location_arg'] != $player_id)
             throw new feException( self::_("You aren't currently the active thief") );
 
 
@@ -802,7 +804,7 @@ class IndianChief extends Table
     function stNewHand()
     {
         self::incGameStateValue("currentRound", 1);
-
+        self::setGameStateValue('currentThiefOffset', 0);
 
         // Replenish each players hand to 8 cards
         $players = self::loadPlayersBasicInfos();
