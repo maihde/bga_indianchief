@@ -35,13 +35,76 @@
     <table class="scoretable">
         <tr class="scoretableheader">
             <th>Player</th>
-            <th>Thief<br/><small>1 card</small></th>
-            <th>Beggar<br/><small>2 cards</small></th>
-            <th>Poor Man<br/><small>3 cards</small></th>
-            <th>Laywer<br/><small>4 cards</th>
-            <th>Rich Man<br/><small>5 cards</th>
-            <th>Doctor<br/><small>6 cards</th>
-            <th>Indian Chief<br/><small>7 cards</th>
+            <th>Thief<br/>
+              <div class="meld_tooltip">
+                <small>1 card</small>
+                <span class="meld_tooltiptext">
+                Score face value, optionally steal one card.
+                </span>
+              </div>
+            </th>
+            <th>Beggar<br/>
+              <div class="meld_tooltip">
+                <small>2 cards</small>
+                <span class="meld_tooltiptext">
+                Score two points for each match with another players meld.
+                </span>
+              </div>
+            </th>
+            <th>Poor Man<br/>
+              <div class="meld_tooltip">
+                <small>3 cards</small>
+                <span class="meld_tooltiptext">
+                Score face value for spades only.
+                </span>
+              </div>
+            </th>
+            <th>Laywer<br/>
+              <div class="meld_tooltip">
+                <small>4 cards</small>
+                <span class="meld_tooltiptext">
+                If face values add to 25, score 25.  Otherwise score nothing. 
+                </span>
+              </div>
+            </th>
+            <th>Rich Man<br/>
+              <div class="meld_tooltip">
+                <small>5 cards</small>
+                <span class="meld_tooltiptext">
+                Add face values together, score total as a negative number.
+                </span>
+              </div>
+            </th>
+            <th>Doctor<br/>
+              <div class="meld_tooltip">
+                <small>6 cards</small>
+                <span class="meld_tooltiptext">
+                Meld must have one heart, one ace, and all cards must have a different rank.
+                Select one suit and receive ten points for each card of that suit in your meld.
+                </span>
+              </div>
+            </th>
+            <th>Indian Chief<br/>
+              <div class="meld_tooltip">
+                <small>7 cards</small>
+                <span class="meld_tooltiptext">
+                Make a five-card poker hand and a two card "kicker".  Add the two cards together
+                and score the last digit of the total.  Score the poker hand as follows:
+                <ul>
+                    <li>50 for five of a kind</li>
+                    <li>45 for a straight flush</li>
+                    <li>40 for four of a kind</li>
+                    <li>35 for a full house</li>
+                    <li>30 for a flush</li>
+                    <li>25 for a straight</li>
+                    <li>20 for three of a kind</li>
+                    <li>15 for two pairs</li>
+                    <li>10 for one pair</li>
+                    <li>5 for no pair</li>
+                </ul>
+                </span>
+              </div>
+            </th>
             <th>Total</th>
         </tr>
         <!-- BEGIN player_score -->
